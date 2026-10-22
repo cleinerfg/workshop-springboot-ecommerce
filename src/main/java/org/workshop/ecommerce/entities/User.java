@@ -1,10 +1,7 @@
 package org.workshop.ecommerce.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,6 +9,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "tb_user")
 @Getter @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements Serializable {
