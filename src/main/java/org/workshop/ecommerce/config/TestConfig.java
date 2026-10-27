@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.workshop.ecommerce.entities.Order;
 import org.workshop.ecommerce.entities.User;
+import org.workshop.ecommerce.repositories.OrderRepository;
 import org.workshop.ecommerce.repositories.UserRepository;
 
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,11 +19,15 @@ import java.util.List;
 public class TestConfig implements CommandLineRunner {
 
     private final UserRepository userRepository;
-
+    private final OrderRepository orderRepository;
 
     @Override
     public void run(String... args) throws Exception {
-        userRepository.saveAll(getUsersSeed());
+        List<User> users = getUsersSeed();
+        userRepository.saveAll(users);
+
+        List<Order> orders = getOrdersSeed(users);
+        orderRepository.saveAll(orders);
     }
 
     private static List<User> getUsersSeed() {
@@ -46,5 +53,24 @@ public class TestConfig implements CommandLineRunner {
                 .build();
 
         return Arrays.asList(user1, user2, user3);
+    }
+
+    private static List<Order> getOrdersSeed(List<User> users) {
+        Order order1 = Order.builder()
+                .creationDate(Instant.parse("2019-06-20T19:53:07Z"))
+                .client(users.get(0))
+                .build();
+
+        Order order2 = Order.builder()
+                .creationDate(Instant.parse("2019-07-21T03:42:10Z"))
+                .client(users.get(1))
+                .build();
+
+        Order order3 = Order.builder()
+                .creationDate(Instant.parse("2019-07-22T15:21:22Z"))
+                .client(users.get(2))
+                .build();
+
+        return Arrays.asList(order1, order2, order3);
     }
 }
