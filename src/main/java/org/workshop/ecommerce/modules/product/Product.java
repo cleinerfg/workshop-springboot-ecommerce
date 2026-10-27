@@ -1,10 +1,13 @@
 package org.workshop.ecommerce.modules.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.workshop.ecommerce.modules.category.Category;
+import org.workshop.ecommerce.modules.order.Order;
+import org.workshop.ecommerce.modules.order.orderitem.OrderItem;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -25,6 +28,9 @@ public class Product {
     private Double price;
     private String imgUrl;
 
+    @OneToMany(mappedBy = "id.product")
+    private final Set<OrderItem> items = new HashSet<>();
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "tb_product_category",
@@ -39,6 +45,14 @@ public class Product {
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders() {
+        Set<Order> orders = new HashSet<>();
+        items.forEach(item -> orders.add(item.getOrder()));
+
+        return orders;
     }
 
     @Override
