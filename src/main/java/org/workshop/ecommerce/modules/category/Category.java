@@ -1,14 +1,18 @@
 package org.workshop.ecommerce.modules.category;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.workshop.ecommerce.modules.product.Product;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "category")
+@Table(name = "tb_category")
 @Getter
 @NoArgsConstructor
 public class Category {
@@ -17,6 +21,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
+    private final Set<Product> products = new HashSet<>();
 
     @Builder
     public Category(String name) {

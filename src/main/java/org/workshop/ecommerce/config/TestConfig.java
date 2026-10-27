@@ -4,11 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.transaction.annotation.Transactional;
 import org.workshop.ecommerce.modules.category.Category;
 import org.workshop.ecommerce.modules.category.CategoryRepository;
 import org.workshop.ecommerce.modules.order.Order;
 import org.workshop.ecommerce.modules.order.OrderRepository;
 import org.workshop.ecommerce.modules.order.OrderStatus;
+import org.workshop.ecommerce.modules.product.Product;
+import org.workshop.ecommerce.modules.product.ProductRepository;
 import org.workshop.ecommerce.modules.user.User;
 import org.workshop.ecommerce.modules.user.UserRepository;
 
@@ -24,8 +27,10 @@ public class TestConfig implements CommandLineRunner {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
         List<User> users = getUsersSeed();
         userRepository.saveAll(users);
@@ -35,6 +40,22 @@ public class TestConfig implements CommandLineRunner {
 
         List<Category> categories = getCategoriesSeed();
         categoryRepository.saveAll(categories);
+
+        List<Product> products = getProductsSeed();
+        productRepository.saveAll(products);
+
+        Category catElectronics = categories.get(0);
+        Category catBooks = categories.get(1);
+        Category catComputers = categories.get(2);
+
+        products.get(0).getCategories().add(catElectronics); // Smartphone X
+        products.get(1).getCategories().add(catBooks);       // Clean Code
+        products.get(2).getCategories().add(catElectronics); // Mechanical Keyboard
+        products.get(2).getCategories().add(catComputers);   // Mechanical Keyboard
+        products.get(3).getCategories().add(catElectronics); // Wireless Mouse
+        products.get(4).getCategories().add(catComputers);   // UltraWide Monitor
+
+        productRepository.saveAll(products);
     }
 
     private static List<User> getUsersSeed() {
@@ -94,9 +115,43 @@ public class TestConfig implements CommandLineRunner {
                 .build();
 
         Category cat3 = Category.builder()
-                .name("Clothing")
+                .name("Computers")
                 .build();
 
         return List.of(cat1, cat2, cat3);
+    }
+
+    private static List<Product> getProductsSeed() {
+        Product prod1 = Product.builder()
+                .name("Smartphone X")
+                .description("Latest generation smartphone with high-resolution camera.")
+                .price(2999.99)
+                .build();
+
+        Product prod2 = Product.builder()
+                .name("Clean Code")
+                .description("A Handbook of Agile Software Craftsmanship.")
+                .price(149.90)
+                .build();
+
+        Product prod3 = Product.builder()
+                .name("Mechanical Keyboard")
+                .description("RGB backlit mechanical keyboard with tactile switches.")
+                .price(350.00)
+                .build();
+
+        Product prod4 = Product.builder()
+                .name("Wireless Mouse")
+                .description("Ergonomic wireless mouse with adjustable DPI.")
+                .price(120.50)
+                .build();
+
+        Product prod5 = Product.builder()
+                .name("UltraWide Monitor 29")
+                .description("Full HD UltraWide IPS monitor for enhanced productivity.")
+                .price(1450.00)
+                .build();
+
+        return List.of(prod1, prod2, prod3, prod4, prod5);
     }
 }
