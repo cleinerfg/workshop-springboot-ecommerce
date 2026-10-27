@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.workshop.ecommerce.modules.Category.Category;
+import org.workshop.ecommerce.modules.Category.CategoryRepository;
 import org.workshop.ecommerce.modules.Order.Order;
 import org.workshop.ecommerce.modules.Order.OrderRepository;
 import org.workshop.ecommerce.modules.Order.OrderStatus;
@@ -21,6 +23,7 @@ public class TestConfig implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -29,6 +32,9 @@ public class TestConfig implements CommandLineRunner {
 
         List<Order> orders = getOrdersSeed(users);
         orderRepository.saveAll(orders);
+
+        List<Category> categories = getCategoriesSeed();
+        categoryRepository.saveAll(categories);
     }
 
     private static List<User> getUsersSeed() {
@@ -76,5 +82,21 @@ public class TestConfig implements CommandLineRunner {
                 .build();
 
         return Arrays.asList(order1, order2, order3);
+    }
+
+    private static List<Category> getCategoriesSeed() {
+        Category cat1 = Category.builder()
+                .name("Electronics")
+                .build();
+
+        Category cat2 = Category.builder()
+                .name("Books")
+                .build();
+
+        Category cat3 = Category.builder()
+                .name("Clothing")
+                .build();
+
+        return List.of(cat1, cat2, cat3);
     }
 }
