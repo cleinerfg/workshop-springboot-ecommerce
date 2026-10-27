@@ -10,6 +10,8 @@ import org.workshop.ecommerce.modules.category.CategoryRepository;
 import org.workshop.ecommerce.modules.order.Order;
 import org.workshop.ecommerce.modules.order.OrderRepository;
 import org.workshop.ecommerce.modules.order.OrderStatus;
+import org.workshop.ecommerce.modules.order.orderitem.OrderItem;
+import org.workshop.ecommerce.modules.order.orderitem.OrderItemRepository;
 import org.workshop.ecommerce.modules.product.Product;
 import org.workshop.ecommerce.modules.product.ProductRepository;
 import org.workshop.ecommerce.modules.user.User;
@@ -28,6 +30,7 @@ public class TestConfig implements CommandLineRunner {
     private final OrderRepository orderRepository;
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final OrderItemRepository orderItemRepository;
 
     @Override
     @Transactional
@@ -56,6 +59,9 @@ public class TestConfig implements CommandLineRunner {
         products.get(4).getCategories().add(catComputers);   // UltraWide Monitor
 
         productRepository.saveAll(products);
+
+        List<OrderItem> orderItems = getOrderItemsSeed(orders, products);
+        orderItemRepository.saveAll(orderItems);
     }
 
     private static List<User> getUsersSeed() {
@@ -153,5 +159,37 @@ public class TestConfig implements CommandLineRunner {
                 .build();
 
         return List.of(prod1, prod2, prod3, prod4, prod5);
+    }
+
+    private static List<OrderItem> getOrderItemsSeed(List<Order> orders, List<Product> products) {
+        OrderItem oi1 = OrderItem.builder()
+                .order(orders.get(0))
+                .product(products.get(0))
+                .quantity(2)
+                .price(products.get(0).getPrice())
+                .build();
+
+        OrderItem oi2 = OrderItem.builder()
+                .order(orders.get(0))
+                .product(products.get(2))
+                .quantity(1)
+                .price(products.get(2).getPrice())
+                .build();
+
+        OrderItem oi3 = OrderItem.builder()
+                .order(orders.get(1))
+                .product(products.get(1))
+                .quantity(1)
+                .price(products.get(1).getPrice())
+                .build();
+
+        OrderItem oi4 = OrderItem.builder()
+                .order(orders.get(2))
+                .product(products.get(4))
+                .quantity(2)
+                .price(products.get(4).getPrice())
+                .build();
+
+        return Arrays.asList(oi1, oi2, oi3, oi4);
     }
 }

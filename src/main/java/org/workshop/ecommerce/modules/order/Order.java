@@ -3,11 +3,14 @@ package org.workshop.ecommerce.modules.order;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.workshop.ecommerce.modules.order.orderitem.OrderItem;
 import org.workshop.ecommerce.modules.user.User;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -28,6 +31,10 @@ public class Order implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private User client;
+
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     @Builder
     public Order(Instant creationDate, OrderStatus status, User client) {

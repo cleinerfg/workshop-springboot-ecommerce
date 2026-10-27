@@ -1,8 +1,10 @@
 package org.workshop.ecommerce.modules.order.orderitem;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.workshop.ecommerce.modules.order.Order;
@@ -21,6 +23,7 @@ public class OrderItem {
     private Integer quantity;
     private Double price;
 
+    @Builder
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
         id.setOrder(order);
         id.setProduct(product);
@@ -28,6 +31,7 @@ public class OrderItem {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
