@@ -1,4 +1,4 @@
-package org.workshop.ecommerce.modules.Order;
+package org.workshop.ecommerce.modules.order;
 
 import lombok.Getter;
 

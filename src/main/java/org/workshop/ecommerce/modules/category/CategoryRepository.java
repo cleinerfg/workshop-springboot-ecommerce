@@ -1,4 +1,4 @@
-package org.workshop.ecommerce.modules.Category;
+package org.workshop.ecommerce.modules.category;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

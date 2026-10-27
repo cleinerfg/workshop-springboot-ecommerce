@@ -1,9 +1,9 @@
-package org.workshop.ecommerce.modules.Order;
+package org.workshop.ecommerce.modules.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.workshop.ecommerce.modules.User.User;
+import org.workshop.ecommerce.modules.user.User;
 
 import java.io.Serializable;
 import java.time.Instant;

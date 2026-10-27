@@ -1,4 +1,4 @@
-package org.workshop.ecommerce.modules.Category;
+package org.workshop.ecommerce.modules.category;
 
 import jakarta.persistence.*;
 import lombok.Builder;

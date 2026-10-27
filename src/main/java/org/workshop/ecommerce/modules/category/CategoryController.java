@@ -1,4 +1,4 @@
-package org.workshop.ecommerce.modules.Order;
+package org.workshop.ecommerce.modules.category;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/categories")
 @RequiredArgsConstructor
-public class OrderController {
+public class CategoryController {
 
-    private final OrderService service;
+    private final CategoryService service;
 
     @GetMapping
-    public ResponseEntity<List<Order>> getOrders() {
+    public ResponseEntity<List<Category>> getCategories() {
         return ResponseEntity.ok(service.loadAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrder(@PathVariable Long id) {
-        Order user = service.loadById(id);
+    public ResponseEntity<Category> getCategory(@PathVariable Long id) {
+        Category user = service.loadById(id);
         if (user == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(user);
     }

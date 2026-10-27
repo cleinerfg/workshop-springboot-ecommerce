@@ -1,4 +1,4 @@
-package org.workshop.ecommerce.modules.Category;
+package org.workshop.ecommerce.modules.category;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
