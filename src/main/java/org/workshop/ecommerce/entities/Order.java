@@ -3,6 +3,7 @@ package org.workshop.ecommerce.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.workshop.ecommerce.entities.enums.OrderStatus;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -21,14 +22,17 @@ public class Order implements Serializable {
     //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant creationDate;
 
+    private Integer statusCode;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private User client;
 
     @Builder
-    public Order(Instant creationDate, User client) {
+    public Order(Instant creationDate, OrderStatus status, User client) {
         this.creationDate = creationDate;
+        this.statusCode = status.getCode();
         this.client = client;
     }
 

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.workshop.ecommerce.entities.Order;
 import org.workshop.ecommerce.entities.User;
+import org.workshop.ecommerce.entities.enums.OrderStatus;
 import org.workshop.ecommerce.repositories.OrderRepository;
 import org.workshop.ecommerce.repositories.UserRepository;
 
@@ -58,16 +59,19 @@ public class TestConfig implements CommandLineRunner {
     private static List<Order> getOrdersSeed(List<User> users) {
         Order order1 = Order.builder()
                 .creationDate(Instant.parse("2019-06-20T19:53:07Z"))
+                .status(OrderStatus.WAITING_FOR_PAYMENT)
                 .client(users.get(0))
                 .build();
 
         Order order2 = Order.builder()
                 .creationDate(Instant.parse("2019-07-21T03:42:10Z"))
+                .status(OrderStatus.DELIVERED)
                 .client(users.get(1))
                 .build();
 
         Order order3 = Order.builder()
                 .creationDate(Instant.parse("2019-07-22T15:21:22Z"))
+                .status(OrderStatus.PAID)
                 .client(users.get(2))
                 .build();
 
