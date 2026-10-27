@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.workshop.ecommerce.entities.Order;
-import org.workshop.ecommerce.entities.User;
-import org.workshop.ecommerce.entities.enums.OrderStatus;
-import org.workshop.ecommerce.repositories.OrderRepository;
-import org.workshop.ecommerce.repositories.UserRepository;
+import org.workshop.ecommerce.modules.Order.Order;
+import org.workshop.ecommerce.modules.Order.OrderRepository;
+import org.workshop.ecommerce.modules.Order.OrderStatus;
+import org.workshop.ecommerce.modules.User.User;
+import org.workshop.ecommerce.modules.User.UserRepository;
 
 import java.time.Instant;
 import java.util.Arrays;

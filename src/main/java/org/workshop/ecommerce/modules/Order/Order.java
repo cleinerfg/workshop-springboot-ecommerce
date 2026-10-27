@@ -1,9 +1,9 @@
-package org.workshop.ecommerce.entities;
+package org.workshop.ecommerce.modules.Order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.workshop.ecommerce.entities.enums.OrderStatus;
+import org.workshop.ecommerce.modules.User.User;
 
 import java.io.Serializable;
 import java.time.Instant;

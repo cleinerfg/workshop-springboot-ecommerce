@@ -1,9 +1,7 @@
-package org.workshop.ecommerce.services;
+package org.workshop.ecommerce.modules.Order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.workshop.ecommerce.entities.Order;
-import org.workshop.ecommerce.repositories.OrderRepository;
 
 import java.util.List;
 import java.util.Optional;

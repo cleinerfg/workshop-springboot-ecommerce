@@ -1,4 +1,4 @@
-package org.workshop.ecommerce.entities.enums;
+package org.workshop.ecommerce.modules.Order;
 
 import lombok.Getter;
 

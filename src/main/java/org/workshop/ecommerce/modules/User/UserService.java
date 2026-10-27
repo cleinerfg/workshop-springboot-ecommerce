@@ -1,9 +1,7 @@
-package org.workshop.ecommerce.services;
+package org.workshop.ecommerce.modules.User;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.workshop.ecommerce.entities.User;
-import org.workshop.ecommerce.repositories.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

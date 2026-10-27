@@ -1,7 +1,8 @@
-package org.workshop.ecommerce.entities;
+package org.workshop.ecommerce.modules.User;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.workshop.ecommerce.modules.Order.Order;
 
 import java.io.Serializable;
 import java.util.LinkedHashSet;

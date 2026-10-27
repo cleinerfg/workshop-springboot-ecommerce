@@ -1,7 +1,6 @@
-package org.workshop.ecommerce.repositories;
+package org.workshop.ecommerce.modules.Order;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.workshop.ecommerce.entities.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 }
