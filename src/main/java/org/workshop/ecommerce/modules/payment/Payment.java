@@ -17,12 +17,12 @@ import java.util.Objects;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore
     @OneToOne
     @MapsId
+    @JoinColumn(name = "order_id")
     private Order order;
 
     private Instant moment;
