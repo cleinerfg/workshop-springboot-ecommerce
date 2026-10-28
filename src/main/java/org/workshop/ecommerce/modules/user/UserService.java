@@ -20,4 +20,8 @@ public class UserService {
         Optional<User> userOp = repository.findById(id);
         return userOp.orElse(null);
     }
+
+    public User create(User user) {
+        return repository.save(user);
+    }
 }

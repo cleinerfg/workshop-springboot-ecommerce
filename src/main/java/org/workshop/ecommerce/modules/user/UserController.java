@@ -2,11 +2,10 @@ package org.workshop.ecommerce.modules.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -26,5 +25,16 @@ public class UserController {
         User user = service.loadById(id);
         if (user == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(user);
+    }
+
+    @PostMapping
+    public ResponseEntity<User> create(@RequestBody User user) {
+        User userCreated = service.create(user);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(userCreated.getId()).toUri();
+
+        return ResponseEntity.created(location)
+                .body(userCreated);
     }
 }
