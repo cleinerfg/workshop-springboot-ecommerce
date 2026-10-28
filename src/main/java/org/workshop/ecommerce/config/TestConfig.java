@@ -12,6 +12,7 @@ import org.workshop.ecommerce.modules.order.OrderRepository;
 import org.workshop.ecommerce.modules.order.OrderStatus;
 import org.workshop.ecommerce.modules.order.orderitem.OrderItem;
 import org.workshop.ecommerce.modules.order.orderitem.OrderItemRepository;
+import org.workshop.ecommerce.modules.payment.Payment;
 import org.workshop.ecommerce.modules.product.Product;
 import org.workshop.ecommerce.modules.product.ProductRepository;
 import org.workshop.ecommerce.modules.user.User;
@@ -62,6 +63,11 @@ public class TestConfig implements CommandLineRunner {
 
         List<OrderItem> orderItems = getOrderItemsSeed(orders, products);
         orderItemRepository.saveAll(orderItems);
+
+        Order orderPayed = orders.get(2);
+        Payment pay = getPaymentSeed(orderPayed);
+        orderPayed.setPayment(pay);
+        orderRepository.save(orderPayed);
     }
 
     private static List<User> getUsersSeed() {
@@ -191,5 +197,12 @@ public class TestConfig implements CommandLineRunner {
                 .build();
 
         return Arrays.asList(oi1, oi2, oi3, oi4);
+    }
+
+    private static Payment getPaymentSeed(Order order) {
+        return Payment.builder()
+                .order(order)
+                .moment(Instant.parse("2019-07-22T17:21:22Z"))
+                .build();
     }
 }

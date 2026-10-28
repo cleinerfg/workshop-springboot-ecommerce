@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.workshop.ecommerce.modules.order.orderitem.OrderItem;
+import org.workshop.ecommerce.modules.payment.Payment;
 import org.workshop.ecommerce.modules.user.User;
 
 import java.io.Serializable;
@@ -35,6 +36,9 @@ public class Order implements Serializable {
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 
     @Builder
     public Order(Instant creationDate, OrderStatus status, User client) {
