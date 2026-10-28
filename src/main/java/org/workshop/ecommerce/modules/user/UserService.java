@@ -2,6 +2,7 @@ package org.workshop.ecommerce.modules.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.workshop.ecommerce.exceptions.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,7 @@ public class UserService {
 
     public User loadById(Long id) {
         Optional<User> userOp = repository.findById(id);
-        return userOp.orElse(null);
+        return userOp.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User create(User user) {
