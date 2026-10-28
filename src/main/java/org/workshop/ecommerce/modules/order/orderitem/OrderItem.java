@@ -41,6 +41,10 @@ public class OrderItem {
         return id.getProduct();
     }
 
+    public Double getSubTotal() {
+        return price * quantity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof OrderItem orderItem)) return false;
