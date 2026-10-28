@@ -1,5 +1,6 @@
 package org.workshop.ecommerce.modules.user;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -41,9 +42,13 @@ public class UserService {
     }
 
     public User update(Long id, User userUpdated) {
-        User entity = repository.getReferenceById(id);
-        updateData(entity, userUpdated);
-        return repository.save(entity);
+        try {
+            User entity = repository.getReferenceById(id);
+            updateData(entity, userUpdated);
+            return repository.save(entity);
+        } catch (EntityNotFoundException _) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(User entity, User userUpdated) {
