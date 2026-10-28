@@ -1,7 +1,9 @@
 package org.workshop.ecommerce.modules.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.workshop.ecommerce.exceptions.DatabaseException;
 import org.workshop.ecommerce.exceptions.ResourceNotFoundException;
 
 import java.util.List;
@@ -27,7 +29,15 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException(id);
+        }
+        try {
+            repository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+
     }
 
     public User update(Long id, User userUpdated) {
