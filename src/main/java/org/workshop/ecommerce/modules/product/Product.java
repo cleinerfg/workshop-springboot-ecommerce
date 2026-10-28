@@ -28,6 +28,7 @@ public class Product {
     private Double price;
     private String imgUrl;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.product")
     private final Set<OrderItem> items = new HashSet<>();
 
